@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="265.0" prefWidth="1271.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="gestion.BilanController">
+   <children>
+      <TableView fx:id="tableview" fixedCellSize="15.0" prefHeight="265.0" prefWidth="1271.0">
+        <columns>
+            <TableColumn fx:id="anneeCL" prefWidth="93.0" text="Annee" />
+            <TableColumn fx:id="sceanceCL" prefWidth="90.0" text="Scéance" />
+          <TableColumn fx:id="nomCL" prefWidth="120.0" text="Nom Etudiant" />
+          <TableColumn fx:id="themeCL" prefWidth="166.0" text="Theme" />
+            <TableColumn fx:id="bilanCL" prefWidth="292.0" text="Bilan" />
+            <TableColumn fx:id="tafCL" prefWidth="309.0" text="TAF" />
+            <TableColumn fx:id="dateCL" prefWidth="100.0" text="Date" />
+            <TableColumn fx:id="heureCL" prefWidth="100.0" text="Heure" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="660.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.HomeController">
+    <children>
+      <ImageView fitHeight="70.0" fitWidth="900.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/UNIV.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="119.0" layoutX="2.0" layoutY="70.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/univDouala.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="112.0" fitWidth="119.0" layoutX="783.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/iut.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="270.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTION DES ENCADREMENTS DES ETUDIANTS DE L'IUT DE DOUALA" textAlignment="CENTER" wrappingWidth="360.7294921875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <TextArea editable="false" layoutX="280.0" layoutY="173.0" prefHeight="186.0" prefWidth="345.0" />
+      <Button layoutX="105.0" layoutY="226.0" mnemonicParsing="false" onAction="#EtudiantAction" prefHeight="43.0" prefWidth="119.0" text="ETUDIANTS" textAlignment="CENTER" />
+      <Button layoutX="686.0" layoutY="229.0" mnemonicParsing="false" onAction="#BilanAction" prefHeight="43.0" prefWidth="125.0" text="BILAN" textAlignment="CENTER" />
+      <Button layoutX="395.0" layoutY="147.0" mnemonicParsing="false" onAction="#AboutAction" prefHeight="23.0" prefWidth="104.0" text="about us" textAlignment="CENTER">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <TabPane layoutY="375.0" prefHeight="295.0" prefWidth="902.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Encadrement en cours">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="#260fd3" layoutX="168.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Encadrement En Cours">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="Encours" layoutY="68.0" prefHeight="194.0" prefWidth="902.0">
+                          <columns>
+                              <TableColumn fx:id="nomENCL" prefWidth="108.0" text="Nom Etudiant" />
+                            <TableColumn fx:id="prenomENCL" prefWidth="130.0" text="Prenom Etudiant" />
+                            <TableColumn fx:id="filiereENCL" minWidth="7.0" prefWidth="53.0" text="Filiere" />
+                              <TableColumn fx:id="niveauENCL" minWidth="0.0" prefWidth="58.0" text="Niveau" />
+                              <TableColumn fx:id="typeENCL" prefWidth="82.0" text="Type" />
+                              <TableColumn fx:id="themeENCL" prefWidth="126.0" text="Theme" />
+                              <TableColumn fx:id="datedebutENCL" minWidth="0.0" prefWidth="100.0" text="Date Debut" />
+                              <TableColumn fx:id="datefinENCL" prefWidth="92.0" text="Date Fin" />
+                              <TableColumn fx:id="anneeENCL" prefWidth="152.0" text="Année Academique" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab text="Encadrement cloturer">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="404.0">
+                     <children>
+                        <Text fill="#260fd3" layoutX="227.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Encadrement Cloturer">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="Cloturer" layoutX="-2.0" layoutY="64.0" prefHeight="199.0" prefWidth="902.0">
+                          <columns>
+                            <TableColumn fx:id="nomCL" prefWidth="110.0" text="Nom Etudiant" />
+                            <TableColumn fx:id="prenomCL" prefWidth="131.0" text="Prenom Etudiant" />
+                              <TableColumn fx:id="filiereCL" prefWidth="57.0" text="Filiere" />
+                              <TableColumn fx:id="niveauCL" prefWidth="67.0" text="Niveau" />
+                              <TableColumn fx:id="typeCL" prefWidth="63.0" text="Type" />
+                              <TableColumn fx:id="themeCL" prefWidth="134.0" text="Theme" />
+                              <TableColumn fx:id="datedebutCL" prefWidth="97.0" text="Date Debut" />
+                              <TableColumn fx:id="datefinCL" prefWidth="95.0" text="Date Fin" />
+                              <TableColumn fx:id="anneeCL" prefWidth="147.0" text="Année Academique" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Creer Un RDV">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.29797979797979796" prefHeight="267.0" prefWidth="900.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Button layoutX="43.0" layoutY="23.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="158.0" text="Programmer" />
+                                    <Button layoutX="42.0" layoutY="77.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="158.0" text="Modifier" />
+                                    <Button layoutX="43.0" layoutY="133.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="158.0" text="Supprimer" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <ImageView fitHeight="262.0" fitWidth="624.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@../images/const.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TableView layoutX="2.0" layoutY="144.0" prefHeight="119.0" prefWidth="628.0">
+                                      <columns>
+                                          <TableColumn prefWidth="87.0" text="Column X" />
+                                        <TableColumn prefWidth="82.0" text="C1" />
+                                        <TableColumn prefWidth="73.0" text="C2" />
+                                          <TableColumn prefWidth="97.0" text="Column X" />
+                                          <TableColumn prefWidth="106.0" text="Column X" />
+                                          <TableColumn prefWidth="96.0" text="Column X" />
+                                          <TableColumn prefWidth="86.0" text="Column X" />
+                                      </columns>
+                                    </TableView>
+                                    <Label layoutX="79.0" layoutY="62.0" text="Date:">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="116.0" text="Heure:">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="349.0" layoutY="115.0" text="Theme:">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="365.0" layoutY="62.0" text="Type:">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="133.0" layoutY="56.0" prefHeight="31.0" prefWidth="196.0" />
+                                    <TextField layoutX="133.0" layoutY="108.0" prefHeight="31.0" prefWidth="196.0" />
+                                    <TextField layoutX="420.0" layoutY="109.0" prefHeight="31.0" prefWidth="196.0" />
+                                    <ComboBox layoutX="418.0" layoutY="59.0" prefHeight="30.0" prefWidth="150.0" />
+                                    <Label layoutX="20.0" layoutY="17.0" text="Matricule Etudiant:">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="349.0" layoutY="15.0" text="Nom sceance:">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="475.0" layoutY="11.0" prefHeight="31.0" prefWidth="142.0" />
+                                    <TextField layoutX="192.0" layoutY="12.0" prefHeight="31.0" prefWidth="152.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Etudiants Encadrer">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="202.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ETUDIANTS ENCADRER">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="Encadrer" layoutX="-1.0" layoutY="50.0" prefHeight="209.0" prefWidth="900.0">
+                          <columns>
+                              <TableColumn fx:id="nomE" prefWidth="121.0" text="Nom Etudiant" />
+                              <TableColumn fx:id="prenomE" prefWidth="140.0" text="Prenom Etudiant" />
+                              <TableColumn fx:id="filiereE" prefWidth="73.0" text="Filiere" />
+                            <TableColumn fx:id="niveauE" prefWidth="85.0" text="Niveau" />
+                            <TableColumn fx:id="typeE" prefWidth="193.0" text="Type Encadrement" />
+                              <TableColumn fx:id="themeE" prefWidth="287.0" text="Theme" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Annee Academique">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.38846153846153847" layoutX="2.0" orientation="VERTICAL" prefHeight="262.0" prefWidth="900.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Label layoutX="246.0" layoutY="34.0" text="Année Académique:" />
+                                    <TextField fx:id="nomTF" layoutX="393.0" layoutY="29.0" prefHeight="25.0" prefWidth="282.0" />
+                                    <Button layoutX="589.0" layoutY="65.0" mnemonicParsing="false" onAction="#CreerAnnee" prefHeight="25.0" prefWidth="97.0" text="Creer" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="Annee" layoutX="-4.0" layoutY="-2.0" prefHeight="155.0" prefWidth="900.0">
+                                      <columns>
+                                        <TableColumn fx:id="id" prefWidth="420.0" text="Numero" />
+                                        <TableColumn fx:id="nom" prefWidth="475.0" text="Annee" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Bilan">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="390.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bilan">
+                           <font>
+                              <Font name="System Bold" size="43.0" />
+                           </font>
+                        </Text>
+                        <Label layoutX="107.0" layoutY="69.0" text="Année Académique:" />
+                        <ComboBox layoutX="252.0" layoutY="64.0" prefWidth="150.0" />
+                        <TextArea layoutX="246.0" layoutY="111.0" prefHeight="96.0" prefWidth="257.0" />
+                        <TextArea layoutX="575.0" layoutY="112.0" prefHeight="96.0" prefWidth="261.0" />
+                        <Button layoutX="472.0" layoutY="224.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" text="Creer" />
+                        <Label layoutX="506.0" layoutY="64.0" text="Scéance:" />
+                        <ComboBox layoutX="577.0" layoutY="58.0" prefHeight="25.0" prefWidth="165.0" />
+                        <Label layoutX="197.0" layoutY="114.0" text="Bilan:" />
+                        <Label layoutX="531.0" layoutY="111.0" text="TAF:" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="105.0" layoutY="292.0" mnemonicParsing="false" onAction="#EncadrementAction" prefHeight="43.0" prefWidth="119.0" text="ENCADREMENT" textAlignment="CENTER" />
+   </children>
+</AnchorPane>
