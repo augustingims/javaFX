@@ -12,15 +12,35 @@ import javafx.beans.property.SimpleStringProperty;
  * @author gims
  */
 public class Bilan {
+   
+   private int id;
+   private String intitule;
     
    public SimpleStringProperty annee= new SimpleStringProperty();
    public SimpleStringProperty sceance = new SimpleStringProperty(); 
-    public SimpleStringProperty etudiant = new SimpleStringProperty(); 
+   public SimpleStringProperty etudiant = new SimpleStringProperty(); 
    public SimpleStringProperty theme = new SimpleStringProperty();
    public SimpleStringProperty bilan = new SimpleStringProperty();
    public SimpleStringProperty taf = new SimpleStringProperty();
    public SimpleStringProperty date = new SimpleStringProperty();
    public SimpleStringProperty heure = new SimpleStringProperty();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIntitule() {
+        return intitule;
+    }
+
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
+    }
+   
 
     public String getAnnee() {
         return annee.get();

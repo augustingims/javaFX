@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,10 +20,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -61,6 +64,13 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<CreerRDV,String> billanRDV;
     @FXML private TableColumn<CreerRDV,String> heureRDV;
     @FXML private TableColumn<CreerRDV,String> dateRDV;
+    
+    @FXML private ComboBox<String> matEdtRDVCB;
+    @FXML private ComboBox<String> matEnseigRDVCB;
+    @FXML private TextField nomSeanceRDVTF;
+    @FXML private ComboBox<String> billanRDVCB;
+    @FXML private TextField heureRDVTF;
+    @FXML private TextField dateRDVTF;
      
     //Etudiants Encadrer 
     @FXML private TableView<EtudiantsEncadrer> Encadrer;
@@ -81,6 +91,9 @@ public class HomeController implements Initializable {
       private ObservableList<EncadrementCours> data;
       private ObservableList<EncadrementCloturer> data1;
       private ObservableList<CreerRDV> dataRDV;
+      private ObservableList<String> bilanRDV;
+      private ObservableList<String> matEtdRDV;
+      private ObservableList<String> matEnsRDV;
       private ObservableList<EtudiantsEncadrer> data2;
       private ObservableList<Annee> data3;
       Statement stm;
@@ -169,31 +182,151 @@ public class HomeController implements Initializable {
             }
         }
         
+        public void initialiseComboBox(){
+            bilanRDV = FXCollections.observableArrayList();
+            matEtdRDV = FXCollections.observableArrayList();
+            matEnsRDV = FXCollections.observableArrayList();
+            
+             try{
+             String SQLBilan = "select b.intitule from bilan b";
+             String SQLMatEtd = "select et.matricule_etudiant from etudiant et";
+             String SQLMatEns = "select es.matricule_enseignant from enseignant es";
+             stm=con.ObtenirConnexion().createStatement();
+             ResultSet rsBilan = stm.executeQuery(SQLBilan);  
+             while(rsBilan.next()){
+                 Bilan b = new Bilan();
+                 b.setIntitule(rsBilan.getString("intitule"));
+                 bilanRDV.add(b.getIntitule());
+             }
+             billanRDVCB.setItems(bilanRDV);
+             
+             ResultSet rsMatEtd = stm.executeQuery(SQLMatEtd);
+             while(rsMatEtd.next()){
+                 Etudiants e = new Etudiants();
+                 e.matricule.set(rsMatEtd.getString("matricule_etudiant"));
+                 matEtdRDV.add(e.getMatricule());
+             }
+             matEdtRDVCB.setItems(matEtdRDV);
+             
+             ResultSet rsMatEns = stm.executeQuery(SQLMatEns);
+             while(rsMatEns.next()){
+                 Enseignant e = new Enseignant();
+                 e.setMatricule(rsMatEns.getString("matricule_enseignant"));
+                 matEnsRDV.add(e.getMatricule());
+             }
+             matEnseigRDVCB.setItems(matEnsRDV);
+             
+             vider();
+         }
+         catch(Exception e){
+             e.printStackTrace();
+          System.out.println("Error Innitialise ComboBox");  
+         }
+
+        }
+        
+        public void vider(){
+            matEdtRDVCB.setValue("Student's Matr.");
+            matEnseigRDVCB.setValue("Lecturer's Matr.");
+            nomSeanceRDVTF.setText("");
+            billanRDVCB.setValue("Select Intitulé");
+            heureRDVTF.setText("");
+            dateRDVTF.setText("");
+        }
+        
+        @FXML
+        public void programmerRDV(ActionEvent evt){
+            String matEtd = matEdtRDVCB.getValue();
+            String matEnseig = matEnseigRDVCB.getValue();
+            String nomSeance = nomSeanceRDVTF.getText();
+            String intituleBilan = billanRDVCB.getValue();
+            String heure = heureRDVTF.getText();
+            String date = dateRDVTF.getText();
+            String idBilan = "select b.id_bilan from bilan b where b.intitule = '" + intituleBilan + "'";
+            //String request="insert into seance (nom,date_seance,heure_seance,id_bilan,matricule_enseignant,"
+            //        + "matricule_etudiant) values ('"+nomSeance+"','"+date+"','"+heure+"','"+idBilan+"'"+matEnseig+"','"+matEtd+"')";
+            try{
+                stm=con.ObtenirConnexion().createStatement();
+                ResultSet rsIdBilan = stm.executeQuery(idBilan);
+                Bilan b = new Bilan();
+                while(rsIdBilan.next()){
+                    b.setId(rsIdBilan.getInt("id_bilan"));
+                }
+                String request="insert into seance (nom,date_seance,heure_seance,id_bilan,matricule_enseignant,"
+                    + "matricule_etudiant) values ('"+nomSeance+"','"+date+"','"+heure+"','"+b.getId()+"','"+matEnseig+"','"+matEtd+"')";
+                stm.executeUpdate(request);
+                creerRDVData();
+                vider();
+                JOptionPane.showMessageDialog(null,"Vous avez pris un Rendez le " + date);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+        @FXML
+        public void supprimerRDV(ActionEvent evt){
+            try{
+                if(JOptionPane.showConfirmDialog(null,"Attention vous allez supprimer un etudiant, etez vous sur ?","supprimer etudiant",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){
+                    if(!matEdtRDVCB.getValue().equals("Student's Matr.") && !matEnseigRDVCB.getValue().equals("Lecturer's Matr.")){
+                        stm = con.ObtenirConnexion().createStatement();
+                        String query = "delete from seance where matricule_etudiant = '" + matEdtRDVCB.getValue() + "' and "
+                                + "matricule_enseignant = '" + matEnseigRDVCB.getValue() + "'";
+                        stm.executeUpdate(query);
+                        creerRDVData();
+                        vider();
+                    }else{
+                          JOptionPane.showMessageDialog(null,"veillez selectionner les matricules de l'étudiant et de l'enseignant à supprimer !!!");    
+                    }
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,"erreur de suppression\n"+e.getMessage());
+            }
+        }
+        
+        private final ListChangeListener<CreerRDV> RDVSelectedListener = new ListChangeListener<CreerRDV>(){
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends CreerRDV> c){
+                rdvItemSelected();
+            }
+        };
+        
+        public void rdvItemSelected(){
+            
+        }
+        
+        @FXML
+        public void editerRDV(MouseEvent evt){
+            final ObservableList<CreerRDV> tableRDVSelected = creerRDV.getSelectionModel().getSelectedItems();
+            tableRDVSelected.addListener(RDVSelectedListener);
+        }
+        
+        
         public void etudiantsEncadrerData(){        
         data2 = FXCollections.observableArrayList();
      
-     try{      
-        String SQL ="select etu.nom, etu.prenom, etu.filiere, etu.niveau, en.typeencad, en.theme\n" +
-                    "from etudiant etu, encadrement en\n" +
-                    "where etu.matricule_etudiant=en.matricule_etudiant;";   
-        stm=con.ObtenirConnexion().createStatement();
-        ResultSet rs = stm.executeQuery(SQL);  
-        while(rs.next()){
-            EtudiantsEncadrer cm = new EtudiantsEncadrer();
-            cm.nomE.set(rs.getString("nom"));                       
-            cm.prenomE.set(rs.getString("prenom"));
-            cm.filiereE.set(rs.getString("filiere"));                       
-            cm.niveauE.set(rs.getString("niveau"));
-            cm.typeE.set(rs.getString("typeencad"));
-            cm.themeE.set(rs.getString("theme"));
-            data2.add(cm);  
-        }
-        Encadrer.setItems(data2);
-    }
-    catch(Exception e){
-          e.printStackTrace();
-          System.out.println("Error on Building Data");            
-    }
+            try{      
+                String SQL ="select etu.nom, etu.prenom, etu.filiere, etu.niveau, en.typeencad, en.theme\n" +
+                            "from etudiant etu, encadrement en\n" +
+                            "where etu.matricule_etudiant=en.matricule_etudiant;";   
+                stm=con.ObtenirConnexion().createStatement();
+                ResultSet rs = stm.executeQuery(SQL);  
+                while(rs.next()){
+                    EtudiantsEncadrer cm = new EtudiantsEncadrer();
+                    cm.nomE.set(rs.getString("nom"));                       
+                    cm.prenomE.set(rs.getString("prenom"));
+                    cm.filiereE.set(rs.getString("filiere"));                       
+                    cm.niveauE.set(rs.getString("niveau"));
+                    cm.typeE.set(rs.getString("typeencad"));
+                    cm.themeE.set(rs.getString("theme"));
+                    data2.add(cm);  
+                }
+                Encadrer.setItems(data2);
+            }
+            catch(Exception e){
+                  e.printStackTrace();
+                  System.out.println("Error on Building Data");            
+            }
        }
         
         public void anneeData(){        
@@ -206,7 +339,7 @@ public class HomeController implements Initializable {
         while(rs.next()){
             Annee cm = new Annee();
             cm.numero.set(rs.getInt("id_annee"));                       
-            cm.annee.set(rs.getString("nom"));
+            cm.annee.set(rs.getString("nomA"));
             data3.add(cm);  
         }
         Annee.setItems(data3);
@@ -313,6 +446,7 @@ public class HomeController implements Initializable {
     encadrementCoursData();
     encadrementCloturerData();
     creerRDVData();
+    initialiseComboBox();
     etudiantsEncadrerData();
     anneeData();
     }    

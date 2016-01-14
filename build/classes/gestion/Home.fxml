@@ -51,15 +51,14 @@
                         </Text>
                         <TableView fx:id="Encours" layoutY="68.0" prefHeight="194.0" prefWidth="902.0">
                           <columns>
-                              <TableColumn fx:id="nomENCL" prefWidth="108.0" text="Nom Etudiant" />
-                            <TableColumn fx:id="prenomENCL" prefWidth="130.0" text="Prenom Etudiant" />
-                            <TableColumn fx:id="filiereENCL" minWidth="7.0" prefWidth="53.0" text="Filiere" />
+                              <TableColumn fx:id="nomENCL" prefWidth="119.0" text="Nom Etudiant" />
+                            <TableColumn fx:id="prenomENCL" prefWidth="135.0" text="Prenom Etudiant" />
+                            <TableColumn fx:id="filiereENCL" minWidth="7.0" prefWidth="61.0" text="Filiere" />
                               <TableColumn fx:id="niveauENCL" minWidth="0.0" prefWidth="58.0" text="Niveau" />
-                              <TableColumn fx:id="typeENCL" prefWidth="82.0" text="Type" />
-                              <TableColumn fx:id="themeENCL" prefWidth="126.0" text="Theme" />
-                              <TableColumn fx:id="datedebutENCL" minWidth="0.0" prefWidth="100.0" text="Date Debut" />
-                              <TableColumn fx:id="datefinENCL" prefWidth="92.0" text="Date Fin" />
-                              <TableColumn fx:id="anneeENCL" prefWidth="152.0" text="Année Academique" />
+                              <TableColumn fx:id="typeENCL" prefWidth="150.0" text="Type Encadrement" />
+                              <TableColumn fx:id="themeENCL" prefWidth="144.0" text="Theme" />
+                              <TableColumn fx:id="datedebutENCL" minWidth="0.0" prefWidth="113.0" text="Date Debut" />
+                              <TableColumn fx:id="datefinENCL" prefWidth="121.0" text="Date Fin" />
                           </columns>
                         </TableView>
                      </children>
@@ -81,11 +80,10 @@
                             <TableColumn fx:id="prenomCL" prefWidth="131.0" text="Prenom Etudiant" />
                               <TableColumn fx:id="filiereCL" prefWidth="57.0" text="Filiere" />
                               <TableColumn fx:id="niveauCL" prefWidth="67.0" text="Niveau" />
-                              <TableColumn fx:id="typeCL" prefWidth="63.0" text="Type" />
-                              <TableColumn fx:id="themeCL" prefWidth="134.0" text="Theme" />
-                              <TableColumn fx:id="datedebutCL" prefWidth="97.0" text="Date Debut" />
-                              <TableColumn fx:id="datefinCL" prefWidth="95.0" text="Date Fin" />
-                              <TableColumn fx:id="anneeCL" prefWidth="147.0" text="Année Academique" />
+                              <TableColumn fx:id="typeCL" prefWidth="143.0" text="Type Encadrement" />
+                              <TableColumn fx:id="themeCL" prefWidth="185.0" text="Theme" />
+                              <TableColumn fx:id="datedebutCL" prefWidth="103.0" text="Date Debut" />
+                              <TableColumn fx:id="datefinCL" prefWidth="105.0" text="Date Fin" />
                           </columns>
                         </TableView>
                      </children>
@@ -96,69 +94,68 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane dividerPositions="0.29797979797979796" prefHeight="267.0" prefWidth="900.0">
+                        <SplitPane dividerPositions="0.20155902004454343" prefHeight="267.0" prefWidth="900.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <Button layoutX="43.0" layoutY="23.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="158.0" text="Programmer" />
-                                    <Button layoutX="42.0" layoutY="77.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="158.0" text="Modifier" />
-                                    <Button layoutX="43.0" layoutY="133.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="158.0" text="Supprimer" />
+                                    <Button layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#programmerRDV" prefHeight="43.0" prefWidth="104.0" text="Programmer" />
+                                    <Button layoutX="42.0" layoutY="77.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="104.0" text="Modifier" />
+                                    <Button layoutX="43.0" layoutY="133.0" mnemonicParsing="false" onAction="#supprimerRDV" prefHeight="43.0" prefWidth="104.0" text="Supprimer" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <ImageView fitHeight="262.0" fitWidth="624.0" pickOnBounds="true">
+                                    <ImageView fitHeight="262.0" fitWidth="720.0" layoutX="-2.0" pickOnBounds="true">
                                        <image>
                                           <Image url="@../images/const.png" />
                                        </image>
                                     </ImageView>
-                                    <TableView layoutX="2.0" layoutY="144.0" prefHeight="119.0" prefWidth="628.0">
+                                    <TableView fx:id="creerRDV" layoutX="2.0" layoutY="144.0" prefHeight="119.0" prefWidth="709.0">
                                       <columns>
-                                          <TableColumn prefWidth="87.0" text="Column X" />
-                                        <TableColumn prefWidth="82.0" text="C1" />
-                                        <TableColumn prefWidth="73.0" text="C2" />
-                                          <TableColumn prefWidth="97.0" text="Column X" />
-                                          <TableColumn prefWidth="106.0" text="Column X" />
-                                          <TableColumn prefWidth="96.0" text="Column X" />
-                                          <TableColumn prefWidth="86.0" text="Column X" />
+                                          <TableColumn fx:id="matEdtRDV" prefWidth="138.0" text="Mat. Etud" />
+                                        <TableColumn fx:id="matEnseigRDV" prefWidth="129.0" text="Nom Enseig" />
+                                        <TableColumn fx:id="nomSeanceRDV" prefWidth="106.0" text="Nom Seance" />
+                                          <TableColumn fx:id="billanRDV" prefWidth="107.0" text="Billan" />
+                                          <TableColumn fx:id="heureRDV" prefWidth="111.0" text="Heure" />
+                                          <TableColumn fx:id="dateRDV" prefWidth="113.0" text="Date" />
                                       </columns>
                                     </TableView>
-                                    <Label layoutX="79.0" layoutY="62.0" text="Date:">
+                                    <Label layoutX="489.0" layoutY="115.0" text="Date:">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="74.0" layoutY="116.0" text="Heure:">
+                                    <Label layoutX="114.0" layoutY="114.0" text="Heure:">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="349.0" layoutY="115.0" text="Theme:">
+                                    <Label layoutX="365.0" layoutY="18.0" text="Matricule Enseignant:">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="365.0" layoutY="62.0" text="Type:">
+                                    <Label layoutX="482.0" layoutY="68.0" text="Billan:">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="133.0" layoutY="56.0" prefHeight="31.0" prefWidth="196.0" />
-                                    <TextField layoutX="133.0" layoutY="108.0" prefHeight="31.0" prefWidth="196.0" />
-                                    <TextField layoutX="420.0" layoutY="109.0" prefHeight="31.0" prefWidth="196.0" />
-                                    <ComboBox layoutX="418.0" layoutY="59.0" prefHeight="30.0" prefWidth="150.0" />
-                                    <Label layoutX="20.0" layoutY="17.0" text="Matricule Etudiant:">
+                                    <TextField fx:id="nomSeanceRDVTF" layoutX="179.0" layoutY="59.0" prefHeight="31.0" prefWidth="162.0" />
+                                    <TextField fx:id="heureRDVTF" layoutX="179.0" layoutY="107.0" prefHeight="31.0" prefWidth="164.0" />
+                                    <TextField fx:id="dateRDVTF" layoutX="555.0" layoutY="105.0" prefHeight="31.0" prefWidth="151.0" />
+                                    <ComboBox fx:id="billanRDVCB" layoutX="555.0" layoutY="58.0" prefHeight="30.0" prefWidth="150.0" />
+                                    <Label layoutX="9.0" layoutY="18.0" text="Matricule Etudiant:">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="349.0" layoutY="15.0" text="Nom sceance:">
+                                    <Label layoutX="55.0" layoutY="68.0" text="Nom sceance:">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="475.0" layoutY="11.0" prefHeight="31.0" prefWidth="142.0" />
-                                    <TextField layoutX="192.0" layoutY="12.0" prefHeight="31.0" prefWidth="152.0" />
+                                    <ComboBox fx:id="matEnseigRDVCB" layoutX="555.0" layoutY="15.0" prefHeight="30.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="matEdtRDVCB" layoutX="179.0" layoutY="13.0" prefHeight="30.0" prefWidth="160.0" />
                                  </children>
                               </AnchorPane>
                           </items>
@@ -242,5 +239,6 @@
         </tabs>
       </TabPane>
       <Button layoutX="105.0" layoutY="292.0" mnemonicParsing="false" onAction="#EncadrementAction" prefHeight="43.0" prefWidth="119.0" text="ENCADREMENT" textAlignment="CENTER" />
+      <ComboBox fx:id="billanRDVCB1" layoutX="565.0" layoutY="68.0" prefHeight="30.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
