@@ -41,7 +41,6 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<EncadrementCours,String> themeENCL;
     @FXML private TableColumn<EncadrementCours,String> datedebutENCL;
     @FXML private TableColumn<EncadrementCours,String> datefinENCL;
-    @FXML private TableColumn<EncadrementCours,String> anneeENCL;
     
     // Column Encadrement Cloturer
     @FXML private TableView<EncadrementCloturer> Cloturer;
@@ -53,7 +52,15 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<EncadrementCloturer,String> themeCL;
     @FXML private TableColumn<EncadrementCloturer,String> datedebutCL;
     @FXML private TableColumn<EncadrementCloturer,String> datefinCL;
-    @FXML private TableColumn<EncadrementCloturer,String> anneeCL;
+    
+    // Créer un RDV
+    @FXML private TableView<CreerRDV> creerRDV;
+    @FXML private TableColumn<CreerRDV,String> matEdtRDV;
+    @FXML private TableColumn<CreerRDV,String> matEnseigRDV;
+    @FXML private TableColumn<CreerRDV,String> nomSeanceRDV;
+    @FXML private TableColumn<CreerRDV,String> billanRDV;
+    @FXML private TableColumn<CreerRDV,String> heureRDV;
+    @FXML private TableColumn<CreerRDV,String> dateRDV;
      
     //Etudiants Encadrer 
     @FXML private TableView<EtudiantsEncadrer> Encadrer;
@@ -73,6 +80,7 @@ public class HomeController implements Initializable {
      Connexion con=new Connexion();           
       private ObservableList<EncadrementCours> data;
       private ObservableList<EncadrementCloturer> data1;
+      private ObservableList<CreerRDV> dataRDV;
       private ObservableList<EtudiantsEncadrer> data2;
       private ObservableList<Annee> data3;
       Statement stm;
@@ -81,11 +89,10 @@ public class HomeController implements Initializable {
         data = FXCollections.observableArrayList();
      
      try{      
-        String SQL ="select etu.nom, etu.prenom, etu.filiere, etu.niveau, en.typeencad, en.theme, en.date_debut, en.date_fin, an.nomA\n" +
-                    "from etudiant etu, encadrement en, enseignant ens, annee an\n" +
+        String SQL ="select etu.nom, etu.prenom, etu.filiere, etu.niveau, en.typeencad, en.theme, en.date_debut, en.date_fin\n" +
+                    "from etudiant etu, encadrement en, enseignant ens\n" +
                     "where etu.matricule_etudiant=en.matricule_etudiant \n" +
                     "and ens.matricule_enseignant=en.matricule_enseignant\n" +
-                    "and en.matricule_enseignant=an.matricule_enseignant\n" +
                     "and en.status = 1";   
         stm=con.ObtenirConnexion().createStatement();
         ResultSet rs = stm.executeQuery(SQL);  
@@ -99,7 +106,6 @@ public class HomeController implements Initializable {
             cm.themeEN.set(rs.getString("theme"));
             cm.datedebutEN.set(rs.getString("date_debut"));
             cm.datefinEN.set(rs.getString("date_fin"));
-            cm.anneeEN.set(rs.getString("nomA"));
             data.add(cm);  
         }
         Encours.setItems(data);
@@ -114,12 +120,11 @@ public class HomeController implements Initializable {
         data1 = FXCollections.observableArrayList();
      
      try{      
-        String SQL ="select etu.nom, etu.prenom, etu.filiere, etu.niveau, en.typeencad, en.theme, en.date_debut, en.date_fin, an.nomA\n" +
-                    "from etudiant etu, encadrement en, enseignant ens, annee an\n" +
+        String SQL ="select etu.nom, etu.prenom, etu.filiere, etu.niveau, en.typeencad, en.theme, en.date_debut, en.date_fin\n" +
+                    "from etudiant etu, encadrement en, enseignant ens\n" +
                     "where etu.matricule_etudiant=en.matricule_etudiant \n" +
                     "and ens.matricule_enseignant=en.matricule_enseignant\n" +
-                    "and en.matricule_enseignant=an.matricule_enseignant\n" +
-                    "and en.status = 0;";   
+                    "and en.status = 0";   
         stm=con.ObtenirConnexion().createStatement();
         ResultSet rs = stm.executeQuery(SQL);  
         while(rs.next()){
@@ -132,7 +137,6 @@ public class HomeController implements Initializable {
             cm.themeCL.set(rs.getString("theme"));
             cm.datedebutCL.set(rs.getString("date_debut"));
             cm.datefinCL.set(rs.getString("date_fin"));
-            cm.anneeCL.set(rs.getString("nomA"));
             data1.add(cm);  
         }
         Cloturer.setItems(data1);
@@ -142,6 +146,28 @@ public class HomeController implements Initializable {
           System.out.println("Error on Building Data");            
     }
        }
+        
+        public void creerRDVData(){
+            dataRDV = FXCollections.observableArrayList();
+            try{
+                String request = "select * from seance";
+                stm = con.ObtenirConnexion().createStatement();
+                ResultSet result = stm.executeQuery(request);
+                while(result.next()){
+                    CreerRDV newRDV = new CreerRDV();
+                    newRDV.setMatEdtRDV(result.getString("matricule_etudiant"));
+                    newRDV.setMatEnseigRDV(result.getString("matricule_enseignant"));
+                    newRDV.setNomSeanceRDV(result.getString("nom"));
+                    newRDV.setBillanRDV(result.getString("id_bilan"));
+                    newRDV.setHeureRDV(result.getString("heure_seance"));
+                    newRDV.setDateRDV(result.getString("date_seance"));
+                    dataRDV.add(newRDV);
+                }
+                creerRDV.setItems(dataRDV);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
         
         public void etudiantsEncadrerData(){        
         data2 = FXCollections.observableArrayList();
@@ -180,7 +206,7 @@ public class HomeController implements Initializable {
         while(rs.next()){
             Annee cm = new Annee();
             cm.numero.set(rs.getInt("id_annee"));                       
-            cm.annee.set(rs.getString("nomA"));
+            cm.annee.set(rs.getString("nom"));
             data3.add(cm);  
         }
         Annee.setItems(data3);
@@ -227,7 +253,7 @@ public class HomeController implements Initializable {
      @FXML
     private void CreerAnnee(ActionEvent event){
     String annee=nomTF.getText();
-    String requete="insert into annee (nomA) values ('"+annee+"')";
+    String requete="insert into annee (nom) values ('"+annee+"')";
         try{
     stm=con.ObtenirConnexion().createStatement();        
     stm.executeUpdate(requete);
@@ -251,7 +277,6 @@ public class HomeController implements Initializable {
     themeENCL.setCellValueFactory(new PropertyValueFactory("themeEN"));
     datedebutENCL.setCellValueFactory(new PropertyValueFactory("datedebutEN"));
     datefinENCL.setCellValueFactory(new PropertyValueFactory("datefinEN"));
-    anneeENCL.setCellValueFactory(new PropertyValueFactory("anneeEN"));
     
     //Encadrement Cloturer
     nomCL.setCellValueFactory(new PropertyValueFactory("nomCL"));     
@@ -262,7 +287,14 @@ public class HomeController implements Initializable {
     themeCL.setCellValueFactory(new PropertyValueFactory("themeCL"));
     datedebutCL.setCellValueFactory(new PropertyValueFactory("datedebutCL"));
     datefinCL.setCellValueFactory(new PropertyValueFactory("datefinCL"));
-    anneeCL.setCellValueFactory(new PropertyValueFactory("anneeCL"));
+    
+    //creer un RDV
+    matEdtRDV.setCellValueFactory(new PropertyValueFactory("matEdtRDV"));
+    matEnseigRDV.setCellValueFactory(new PropertyValueFactory("matEnseigRDV"));
+    nomSeanceRDV.setCellValueFactory(new PropertyValueFactory("nomSeanceRDV"));
+    billanRDV.setCellValueFactory(new PropertyValueFactory("billanRDV"));
+    heureRDV.setCellValueFactory(new PropertyValueFactory("heureRDV"));
+    dateRDV.setCellValueFactory(new PropertyValueFactory("dateRDV"));
     
     //Etudinats Encadrer
     nomE.setCellValueFactory(new PropertyValueFactory("nomE"));     
@@ -280,6 +312,7 @@ public class HomeController implements Initializable {
         connection = con.ObtenirConnexion();
     encadrementCoursData();
     encadrementCloturerData();
+    creerRDVData();
     etudiantsEncadrerData();
     anneeData();
     }    
