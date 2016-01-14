@@ -228,7 +228,7 @@
                            </font>
                         </Text>
                         <Label layoutX="107.0" layoutY="69.0" text="Année Académique:" />
-                        <ComboBox layoutX="252.0" layoutY="64.0" prefWidth="150.0" />
+                        <ComboBox fx:id="anneeCB" layoutX="252.0" layoutY="64.0" prefWidth="150.0" />
                         <TextArea layoutX="246.0" layoutY="111.0" prefHeight="96.0" prefWidth="257.0" />
                         <TextArea layoutX="575.0" layoutY="112.0" prefHeight="96.0" prefWidth="261.0" />
                         <Button layoutX="472.0" layoutY="224.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" text="Creer" />

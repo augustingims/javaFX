@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -69,12 +70,16 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<Annee,Integer> id;
     @FXML private TableColumn<Annee,String> nom;
     @FXML private TextField nomTF;
+    
+    //Bilan
+    @FXML private ComboBox<String> anneeCB;     
 
      Connexion con=new Connexion();           
       private ObservableList<EncadrementCours> data;
       private ObservableList<EncadrementCloturer> data1;
       private ObservableList<EtudiantsEncadrer> data2;
       private ObservableList<Annee> data3;
+      private ObservableList<String> listann;
       Statement stm;
        
        public void encadrementCoursData(){        
@@ -110,6 +115,25 @@ public class HomeController implements Initializable {
     }
        }
        
+        public void chargementAnneeCB(){
+           listann = FXCollections.observableArrayList();
+       try{
+             String SQL = "Select an.nomA from annee an";
+             stm=con.ObtenirConnexion().createStatement();
+             ResultSet rs = stm.executeQuery(SQL);  
+             while(rs.next()){
+                 Annee ann = new Annee();
+                 ann.annee.set(rs.getString("nomA"));
+                 listann.add(ann.getAnnee());
+             }
+             anneeCB.setItems(listann);
+         }
+         catch(Exception e){
+             e.printStackTrace();
+          System.out.println("Error on Building Data");  
+         }
+       }
+        
         public void encadrementCloturerData(){        
         data1 = FXCollections.observableArrayList();
      
@@ -282,6 +306,7 @@ public class HomeController implements Initializable {
     encadrementCloturerData();
     etudiantsEncadrerData();
     anneeData();
+    chargementAnneeCB();
     }    
     
 }
