@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -79,7 +80,12 @@ public class HomeController implements Initializable {
     @FXML private TextField nomTF;
     
     //Bilan
-    @FXML private ComboBox<String> anneeCB;     
+//    @FXML private ComboBox<String> anneeCB; 
+//    @FXML private ComboBox<String> seanceCB;
+    @FXML private TextField intituleTF;
+    @FXML private TextArea observationTA;
+    @FXML private TextArea tafTA;
+
 
      Connexion con=new Connexion();           
       private ObservableList<EncadrementCours> data;
@@ -88,6 +94,8 @@ public class HomeController implements Initializable {
       private ObservableList<EtudiantsEncadrer> data2;
       private ObservableList<Annee> data3;
       private ObservableList<String> listann;
+      private ObservableList<String> listsean;
+
       Statement stm;
        
        public void encadrementCoursData(){        
@@ -121,25 +129,63 @@ public class HomeController implements Initializable {
     }
        }
        
-        public void chargementAnneeCB(){
-           listann = FXCollections.observableArrayList();
-       try{
-             String SQL = "Select an.nomA from annee an";
-             stm=con.ObtenirConnexion().createStatement();
-             ResultSet rs = stm.executeQuery(SQL);  
-             while(rs.next()){
-                 Annee ann = new Annee();
-                 ann.annee.set(rs.getString("nomA"));
-                 listann.add(ann.getAnnee());
-             }
-             anneeCB.setItems(listann);
-         }
-         catch(Exception e){
-             e.printStackTrace();
-          System.out.println("Error on Building Data");  
-         }
-       }
-        
+        @FXML
+   public void CreerBT(ActionEvent evt){        
+      
+    String inti=intituleTF.getText();
+    String obs=observationTA.getText();
+    String taf=tafTA.getText();
+    String requete="insert into bilan (intitule,observation,taf) values ('"+inti+"','"+obs+"','"+taf+"')";
+        try{
+    stm=con.ObtenirConnexion().createStatement();        
+    stm.executeUpdate(requete);
+    JOptionPane.showMessageDialog(null,"le bilan a été belle et bien Creer");
+    buildData();
+    vider();
+    }catch(Exception ex){
+    JOptionPane.showMessageDialog(null,ex.getMessage());
+    }  
+   
+   }
+   
+//        public void chargementAnneeCB(){
+//           listann = FXCollections.observableArrayList();
+//       try{
+//             String SQL = "Select an.nomA from annee an";
+//             stm=con.ObtenirConnexion().createStatement();
+//             ResultSet rs = stm.executeQuery(SQL);  
+//             while(rs.next()){
+//                 Annee ann = new Annee();
+//                 ann.annee.set(rs.getString("nomA"));
+//                 listann.add(ann.getAnnee());
+//             }
+//             anneeCB.setItems(listann);
+//         }
+//         catch(Exception e){
+//             e.printStackTrace();
+//          System.out.println("Error on Building Data");  
+//         }
+//       }
+//        
+//        public void chargementRDVCB(){
+//           listsean = FXCollections.observableArrayList();
+//       try{
+//             String SQL = "Select sc.nomsc from seance sc";
+//             stm=con.ObtenirConnexion().createStatement();
+//             ResultSet rs = stm.executeQuery(SQL);  
+//             while(rs.next()){
+//                 CreerRDV RDV = new CreerRDV();
+//                 RDV.setNomSeanceRDV(rs.getString("nomsc"));
+//                 listsean.add(RDV.getNomSeanceRDV());
+//             }
+//             seanceCB.setItems(listsean);
+//         }
+//         catch(Exception e){
+//             e.printStackTrace();
+//          System.out.println("Error on Building Data");  
+//         }
+//       }
+            
         public void encadrementCloturerData(){        
         data1 = FXCollections.observableArrayList();
      
@@ -181,7 +227,7 @@ public class HomeController implements Initializable {
                     CreerRDV newRDV = new CreerRDV();
                     newRDV.setMatEdtRDV(result.getString("matricule_etudiant"));
                     newRDV.setMatEnseigRDV(result.getString("matricule_enseignant"));
-                    newRDV.setNomSeanceRDV(result.getString("nom"));
+                    newRDV.setNomSeanceRDV(result.getString("nomsc"));
                     newRDV.setBillanRDV(result.getString("id_bilan"));
                     newRDV.setHeureRDV(result.getString("heure_seance"));
                     newRDV.setDateRDV(result.getString("date_seance"));
@@ -230,7 +276,7 @@ public class HomeController implements Initializable {
         while(rs.next()){
             Annee cm = new Annee();
             cm.numero.set(rs.getInt("id_annee"));                       
-            cm.annee.set(rs.getString("nom"));
+            cm.annee.set(rs.getString("nomA"));
             data3.add(cm);  
         }
         Annee.setItems(data3);
@@ -292,6 +338,7 @@ public class HomeController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+           
         //Encadrement en cours
     nomENCL.setCellValueFactory(new PropertyValueFactory("nomEN"));     
     prenomENCL.setCellValueFactory(new PropertyValueFactory("prenomEN"));        
@@ -339,7 +386,14 @@ public class HomeController implements Initializable {
     creerRDVData();
     etudiantsEncadrerData();
     anneeData();
-    chargementAnneeCB();
-    }    
-    
+    }  
+       public void buildData(){        
+        data = FXCollections.observableArrayList();
+       }
+       
+       public void vider(){
+          intituleTF.setText("");
+          observationTA.setText("");
+          tafTA.setText("");
+     }
 }
