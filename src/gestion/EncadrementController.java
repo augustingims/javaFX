@@ -8,8 +8,10 @@ package gestion;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -21,6 +23,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
@@ -177,4 +180,33 @@ public class EncadrementController implements Initializable {
     }  
    
    }
+   
+    @FXML
+   public void cloturerBT(ActionEvent evt){
+    String mat=matriculeENTF.getText();
+    String nom=matriculeETTF.getText();
+    try{
+    if(!mat.equals("") && !nom.equals("")){
+     TextInputDialog dialog = new TextInputDialog("");  
+     dialog.setTitle ("Cloture");
+     dialog.setHeaderText("Etez-vous sur de Cloturer cet Encadrement");
+     dialog.setContentText("veillez entrer la Note:");
+     
+     Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            Long note = Long.parseLong(result.get());
+             boolean bool=false;
+            stm=con.ObtenirConnexion().createStatement();
+            stm.executeUpdate("UPDATE encadrement SET typeencad='"+typeCB.getValue()+"',theme='"+themeTF.getText()+"',date_debut='"+datedebutTF.getText()+"'"
+                    + " ,date_fin='"+datefinTF.getText()+"' ,status="+bool+" ,note ="+note+" where matricule_enseignant='"+matriculeENTF.getText()+"' and matricule_etudiant='"+matriculeETTF.getText()+"'");
+           buildData();
+           vider();
+           System.out.println("Your name: " + result.get());
+        }
+   }
+    }catch(Exception e){
+    JOptionPane.showMessageDialog(null,"erreur de modification"+e.getMessage());
+    System.err.println(e);
+    }  
+  }
 }

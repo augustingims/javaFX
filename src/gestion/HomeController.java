@@ -10,6 +10,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -23,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -86,6 +88,14 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<Annee,Integer> id;
     @FXML private TableColumn<Annee,String> nom;
     @FXML private TextField nomTF;
+    
+    //Bilan
+//    @FXML private ComboBox<String> anneeCB; 
+//    @FXML private ComboBox<String> seanceCB;
+    @FXML private TextField intituleTF;
+    @FXML private TextArea observationTA;
+    @FXML private TextArea tafTA;
+
 
      Connexion con=new Connexion();           
       private ObservableList<EncadrementCours> data;
@@ -96,7 +106,12 @@ public class HomeController implements Initializable {
       private ObservableList<String> matEnsRDV;
       private ObservableList<EtudiantsEncadrer> data2;
       private ObservableList<Annee> data3;
+      private ObservableList<String> listann;
+      private ObservableList<String> listsean;
+
       Statement stm;
+      
+      private int rdvPosition;
        
        public void encadrementCoursData(){        
         data = FXCollections.observableArrayList();
@@ -129,6 +144,63 @@ public class HomeController implements Initializable {
     }
        }
        
+        @FXML
+   public void CreerBT(ActionEvent evt){        
+      
+    String inti=intituleTF.getText();
+    String obs=observationTA.getText();
+    String taf=tafTA.getText();
+    String requete="insert into bilan (intitule,observation,taf) values ('"+inti+"','"+obs+"','"+taf+"')";
+        try{
+    stm=con.ObtenirConnexion().createStatement();        
+    stm.executeUpdate(requete);
+    JOptionPane.showMessageDialog(null,"le bilan a été belle et bien Creer");
+    buildData();
+    vider();
+    }catch(Exception ex){
+    JOptionPane.showMessageDialog(null,ex.getMessage());
+    }  
+   
+   }
+   
+//        public void chargementAnneeCB(){
+//           listann = FXCollections.observableArrayList();
+//       try{
+//             String SQL = "Select an.nomA from annee an";
+//             stm=con.ObtenirConnexion().createStatement();
+//             ResultSet rs = stm.executeQuery(SQL);  
+//             while(rs.next()){
+//                 Annee ann = new Annee();
+//                 ann.annee.set(rs.getString("nomA"));
+//                 listann.add(ann.getAnnee());
+//             }
+//             anneeCB.setItems(listann);
+//         }
+//         catch(Exception e){
+//             e.printStackTrace();
+//          System.out.println("Error on Building Data");  
+//         }
+//       }
+//        
+//        public void chargementRDVCB(){
+//           listsean = FXCollections.observableArrayList();
+//       try{
+//             String SQL = "Select sc.nomsc from seance sc";
+//             stm=con.ObtenirConnexion().createStatement();
+//             ResultSet rs = stm.executeQuery(SQL);  
+//             while(rs.next()){
+//                 CreerRDV RDV = new CreerRDV();
+//                 RDV.setNomSeanceRDV(rs.getString("nomsc"));
+//                 listsean.add(RDV.getNomSeanceRDV());
+//             }
+//             seanceCB.setItems(listsean);
+//         }
+//         catch(Exception e){
+//             e.printStackTrace();
+//          System.out.println("Error on Building Data");  
+//         }
+//       }
+            
         public void encadrementCloturerData(){        
         data1 = FXCollections.observableArrayList();
      
@@ -170,7 +242,7 @@ public class HomeController implements Initializable {
                     CreerRDV newRDV = new CreerRDV();
                     newRDV.setMatEdtRDV(result.getString("matricule_etudiant"));
                     newRDV.setMatEnseigRDV(result.getString("matricule_enseignant"));
-                    newRDV.setNomSeanceRDV(result.getString("nom"));
+                    newRDV.setNomSeanceRDV(result.getString("nomsc"));
                     newRDV.setBillanRDV(result.getString("id_bilan"));
                     newRDV.setHeureRDV(result.getString("heure_seance"));
                     newRDV.setDateRDV(result.getString("date_seance"));
@@ -216,7 +288,7 @@ public class HomeController implements Initializable {
              }
              matEnseigRDVCB.setItems(matEnsRDV);
              
-             vider();
+             viderView();
          }
          catch(Exception e){
              e.printStackTrace();
@@ -225,7 +297,7 @@ public class HomeController implements Initializable {
 
         }
         
-        public void vider(){
+        public void viderView(){
             matEdtRDVCB.setValue("Student's Matr.");
             matEnseigRDVCB.setValue("Lecturer's Matr.");
             nomSeanceRDVTF.setText("");
@@ -256,7 +328,7 @@ public class HomeController implements Initializable {
                     + "matricule_etudiant) values ('"+nomSeance+"','"+date+"','"+heure+"','"+b.getId()+"','"+matEnseig+"','"+matEtd+"')";
                 stm.executeUpdate(request);
                 creerRDVData();
-                vider();
+                viderView();
                 JOptionPane.showMessageDialog(null,"Vous avez pris un Rendez le " + date);
             }catch(Exception e){
                 e.printStackTrace();
@@ -284,15 +356,37 @@ public class HomeController implements Initializable {
             }
         }
         
-        private final ListChangeListener<CreerRDV> RDVSelectedListener = new ListChangeListener<CreerRDV>(){
+        private final ListChangeListener<CreerRDV> RDVSelectedListener = 
+                new ListChangeListener<CreerRDV>(){
             @Override
             public void onChanged(ListChangeListener.Change<? extends CreerRDV> c){
                 rdvItemSelected();
             }
         };
         
+        public CreerRDV getRDVSelected(){
+            if(creerRDV != null){
+                List<CreerRDV> listRDV = creerRDV.getSelectionModel().getSelectedItems();
+                if(listRDV.size() == 1){
+                    final CreerRDV rdvIndexed = listRDV.get(0);
+                    return rdvIndexed;
+                }
+            }
+            return null;
+        }
+        
         public void rdvItemSelected(){
+            final CreerRDV rdv = getRDVSelected();
+            rdvPosition = dataRDV.indexOf(rdv);
             
+            if(rdv != null){
+                matEdtRDVCB.setValue(rdv.getMatEdtRDV());
+                matEnseigRDVCB.setValue(rdv.getMatEnseigRDV());
+                nomSeanceRDVTF.setText(rdv.getNomSeanceRDV());
+                billanRDVCB.setValue(rdv.getBillanRDV());
+                heureRDVTF.setText(rdv.getHeureRDV());
+                dateRDVTF.setText(rdv.getDateRDV());
+            }
         }
         
         @FXML
@@ -401,6 +495,7 @@ public class HomeController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+           
         //Encadrement en cours
     nomENCL.setCellValueFactory(new PropertyValueFactory("nomEN"));     
     prenomENCL.setCellValueFactory(new PropertyValueFactory("prenomEN"));        
@@ -449,6 +544,14 @@ public class HomeController implements Initializable {
     initialiseComboBox();
     etudiantsEncadrerData();
     anneeData();
-    }    
-    
+    }  
+       public void buildData(){        
+        data = FXCollections.observableArrayList();
+       }
+       
+       public void vider(){
+          intituleTF.setText("");
+          observationTA.setText("");
+          tafTA.setText("");
+     }
 }
