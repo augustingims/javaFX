@@ -8,7 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="Gestion.jar" size="1755520" download="eager" />
+=======
+    <jar href="Gestion.jar" size="1758217" download="eager" />
+>>>>>>> 02ebd4505e6bdc6379605cfd0831b4c083b0c586
     <jar href="lib/mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Gestion" >

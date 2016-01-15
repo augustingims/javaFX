@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/home/wabo/Formation/JavaFX/ProjetWilliam/javaFX/src/gestion/CreerRDV.java</file>
+            <file>file:/home/wabo/Formation/JavaFX/ProjetWilliam/javaFX/src/gestion/HomeController.java</file>
+            <file>file:/home/wabo/Formation/JavaFX/ProjetWilliam/javaFX/src/gestion/EtudiantsController.java</file>
+        </group>
+>>>>>>> 02ebd4505e6bdc6379605cfd0831b4c083b0c586
     </open-files>
 </project-private>
