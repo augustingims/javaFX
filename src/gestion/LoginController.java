@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -62,7 +63,8 @@ public class LoginController implements Initializable {
          refresh();
          Parent parent = FXMLLoader.load(getClass().getResource("Home.fxml"));
          Scene scene = new Scene(parent);
-         Stage stage = new Stage();
+         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+         stage.hide();
          stage.setScene(scene);
          stage.show();
          message.setText("Successful connect");

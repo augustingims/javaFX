@@ -24,9 +24,10 @@
                         <Image url="@../images/contrat-emploi.jpg" />
                      </image>
                   </ImageView>
-                  <Button layoutX="10.0" layoutY="73.0" mnemonicParsing="false" onAction="#ajouterBT" prefHeight="57.0" prefWidth="245.0" text="Enregistrer" />
-                  <Button layoutX="13.0" layoutY="157.0" mnemonicParsing="false" onAction="#modifierBT" prefHeight="57.0" prefWidth="245.0" text="Modifier" />
-                  <Button layoutX="10.0" layoutY="243.0" mnemonicParsing="false" onAction="#supprimerBT" prefHeight="57.0" prefWidth="245.0" text="Supprimer" />
+                  <Button layoutX="11.0" layoutY="17.0" mnemonicParsing="false" onAction="#ajouterBT" prefHeight="57.0" prefWidth="245.0" text="Enregistrer" />
+                  <Button layoutX="12.0" layoutY="93.0" mnemonicParsing="false" onAction="#modifierBT" prefHeight="57.0" prefWidth="245.0" text="Modifier" />
+                  <Button layoutX="10.0" layoutY="178.0" mnemonicParsing="false" onAction="#supprimerBT" prefHeight="57.0" prefWidth="245.0" text="Supprimer" />
+                  <Button layoutX="12.0" layoutY="256.0" mnemonicParsing="false" onAction="#QuitterBT" prefHeight="57.0" prefWidth="245.0" text="Quitter" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="352.0" prefWidth="587.0">
@@ -75,8 +76,8 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="filiereCB" layoutX="400.0" layoutY="51.0" prefHeight="31.0" prefWidth="163.0" />
-                              <ComboBox fx:id="niveauCB" layoutX="399.0" layoutY="9.0" prefHeight="31.0" prefWidth="163.0" />
+                              <ComboBox fx:id="filiereCB" layoutX="400.0" layoutY="51.0" prefHeight="31.0" prefWidth="163.0" promptText="Filiere" />
+                              <ComboBox fx:id="niveauCB" layoutX="399.0" layoutY="9.0" prefHeight="31.0" prefWidth="163.0" promptText="Niveau" />
                            </children></AnchorPane>
                     </items>
                   </SplitPane>

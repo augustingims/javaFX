@@ -5,6 +5,7 @@
  */
 package gestion;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,13 +17,18 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
@@ -195,5 +201,14 @@ public class EtudiantsController implements Initializable {
     JOptionPane.showMessageDialog(null,ex.getMessage());
     }  
    
+   }
+   @FXML
+   public void QuitterBT(ActionEvent event) throws IOException{
+       Parent parent = FXMLLoader.load(getClass().getResource("Home.fxml"));
+         Scene scene = new Scene(parent);
+         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+         stage.hide();
+         stage.setScene(scene);
+         stage.show();
    }
 }

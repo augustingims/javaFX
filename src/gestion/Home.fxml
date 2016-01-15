@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="703.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.HomeController">
+<AnchorPane id="AnchorPane" prefHeight="660.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.HomeController">
     <children>
       <ImageView fitHeight="70.0" fitWidth="900.0" pickOnBounds="true">
          <image>
@@ -38,7 +38,7 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <TabPane layoutY="375.0" prefHeight="318.0" prefWidth="902.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="375.0" prefHeight="294.0" prefWidth="902.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Encadrement en cours">
               <content>
@@ -224,11 +224,11 @@
                               <Font name="System Bold" size="43.0" />
                            </font>
                         </Text>
-                        <TextArea fx:id="observationTA" layoutX="468.0" layoutY="65.0" prefHeight="96.0" prefWidth="296.0" />
-                        <TextArea fx:id="tafTA" layoutX="472.0" layoutY="185.0" prefHeight="96.0" prefWidth="291.0" />
+                        <TextArea fx:id="observationTA" layoutX="468.0" layoutY="65.0" prefHeight="70.0" prefWidth="296.0" />
+                        <TextArea fx:id="tafTA" layoutX="467.0" layoutY="149.0" prefHeight="70.0" prefWidth="298.0" />
                         <Button layoutX="155.0" layoutY="187.0" mnemonicParsing="false" onAction="#CreerBT" prefHeight="31.0" prefWidth="113.0" text="Creer" />
                         <Label layoutX="373.0" layoutY="73.0" text="Observation:" />
-                        <Label layoutX="423.0" layoutY="189.0" text="TAF:" />
+                        <Label layoutX="420.0" layoutY="148.0" text="TAF:" />
                         <Label layoutX="36.0" layoutY="70.0" text="Intitule:" />
                         <TextField fx:id="intituleTF" layoutX="102.0" layoutY="70.0" prefHeight="25.0" prefWidth="218.0" />
                      </children></AnchorPane>

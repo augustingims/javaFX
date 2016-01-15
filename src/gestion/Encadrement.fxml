@@ -62,8 +62,9 @@
         </columns>
       </TableView>
       <Button layoutX="44.0" layoutY="461.0" mnemonicParsing="false" onAction="#ajouterBT" prefHeight="38.0" prefWidth="148.0" text="Creer" />
-      <Button layoutX="546.0" layoutY="461.0" mnemonicParsing="false" onAction="#cloturerBT" prefHeight="38.0" prefWidth="148.0" text="Cloturer" />
-      <Button layoutX="293.0" layoutY="461.0" mnemonicParsing="false" onAction="#modifierBT" prefHeight="38.0" prefWidth="148.0" text="Modifier" />
+      <Button layoutX="398.0" layoutY="461.0" mnemonicParsing="false" onAction="#cloturerBT" prefHeight="38.0" prefWidth="148.0" text="Cloturer" />
+      <Button layoutX="225.0" layoutY="461.0" mnemonicParsing="false" onAction="#modifierBT" prefHeight="38.0" prefWidth="148.0" text="Modifier" />
       <ComboBox fx:id="typeCB" layoutX="526.0" layoutY="176.0" prefWidth="150.0" />
+      <Button layoutX="565.0" layoutY="461.0" mnemonicParsing="false" onAction="#Quitter" prefHeight="38.0" prefWidth="148.0" text="Quitter" />
    </children>
 </AnchorPane>

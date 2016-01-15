@@ -10,6 +10,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -24,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
@@ -85,7 +88,6 @@ public class HomeController implements Initializable {
     @FXML private TextField intituleTF;
     @FXML private TextArea observationTA;
     @FXML private TextArea tafTA;
-
 
      Connexion con=new Connexion();           
       private ObservableList<EncadrementCours> data;
@@ -290,7 +292,8 @@ public class HomeController implements Initializable {
     private void EtudiantAction(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("Etudiants.fxml"));
          Scene scene = new Scene(parent);
-         Stage stage = new Stage();
+         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+         stage.hide();
          stage.setScene(scene);
          stage.show();
     }
@@ -298,7 +301,8 @@ public class HomeController implements Initializable {
     private void AboutAction(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("About.fxml"));
          Scene scene = new Scene(parent);
-         Stage stage = new Stage();
+         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+         stage.hide();
          stage.setScene(scene);
          stage.show();
     }
@@ -315,7 +319,8 @@ public class HomeController implements Initializable {
     private void EncadrementAction(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("Encadrement.fxml"));
          Scene scene = new Scene(parent);
-         Stage stage = new Stage();
+         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+         stage.hide();
          stage.setScene(scene);
          stage.show();
     }
@@ -335,7 +340,6 @@ public class HomeController implements Initializable {
     }  
    
 }
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
            
